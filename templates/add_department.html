@@ -1,0 +1,13 @@
+{% extends "header.html" %}
+{% block content %}
+<form method="post">
+    <p>Department name</p>
+
+    <label for="department_name"></label><input type="text" name="department_name" id="department_name"
+                                                class="form-control" value="{{ department_name }}"><br>
+    <br>
+    <input type="submit" class="btn btn-success" value="Send">
+    <input type="button" class="btn btn-warning" onclick="window.location.href='/departments';" value="Cancel"/>
+
+</form>
+{% endblock %}

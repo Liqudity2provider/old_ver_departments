@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul class=flashes>
+    {% for category, message in messages %}
+    <li class="{{ category }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Date of birth</th>
+        <th>Delete</th>
+        <th>Edit</th>
+    </tr>
+    {% for employee in employees %}
+
+    <td><a href="/employee/{{ employee.id }}">{{ employee.name }}</a></td>
+    <td>{{ departments[employee.departments_id] }}</td>
+    <td>{{ employee.salary }}</td>
+    <td>{{ employee.date_of_birth }}</td>
+    <td><a href="#" data-href="/employee/{{ employee.id }}/delete" data-toggle="modal"
+           data-target="#confirm-delete" class="btn btn-outline-danger">Delete</a></td>
+    <td><a href="/employee/{{ employee.id }}/update" class="btn btn btn-outline-info">Edit</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+<script>
+    $('#confirm-delete').on('show.bs.modal', function (e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+
+        $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
+    });
+</script>
+{% endblock %}
+
